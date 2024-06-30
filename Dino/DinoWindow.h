@@ -9,7 +9,8 @@ namespace Dino
 	class DINO_API DinoWindow
 	{
 	public:
-		DinoWindow();
+		static void Init();
+		static std::shared_ptr<DinoWindow> GetWindow(); //shared pointers have overhead
 
 		void CreateWindow(int width, int height, const std::string& windowName);
 		void CreateWindow(int width, int height, std::string&& windowName);
@@ -20,6 +21,9 @@ namespace Dino
 
 
 	private: //class member should have name convention m lowercase before it
+		DinoWindow();
+		inline static std::shared_ptr<DinoWindow> mInstance{ nullptr };
+
 		std::unique_ptr<WindowImplementation> mImplementation{nullptr};
 	};
 }

@@ -10,13 +10,13 @@ namespace Dino {
 
 	void DinoApp::Run()
 	{
-		DinoWindow window;
-		window.CreateWindow(1000, 800, "Test");
+		DinoWindow::Init();
+		DinoWindow::GetWindow()->CreateWindow(1000, 800, "Test");
 
 		while (true) {
 			OnUpdate();
-			window.SwapBuffers();
-			window.PollEvents();
+			DinoWindow::GetWindow()->SwapBuffers();
+			DinoWindow::GetWindow()->PollEvents();
 		}
 	}
 }

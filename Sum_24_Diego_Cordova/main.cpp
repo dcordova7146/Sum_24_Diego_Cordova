@@ -5,7 +5,7 @@ class BestGame : public Dino::DinoApp
 {
 	virtual void OnUpdate() override
 	{
-		DINO_LOG("Running"<<"\n")
+		//DINO_LOG("Running"<<"\n")
 	}
 
 };
