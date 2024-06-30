@@ -1,6 +1,7 @@
 #pragma once
 
 #include"WindowImplementation.h"
+#include"GLFW/glfw3.h"
 
 namespace Dino
 {
@@ -11,11 +12,13 @@ namespace Dino
 		virtual void CreateWindow(int width, int height, std::string&& windowName) override;
 		virtual int GetWidth() const override;
 		virtual int GetHeight() const override;
+		virtual void SwapBuffers() override;
+		virtual void PollEvents() override;
 
+		WindowGLFW();
 		~WindowGLFW();
-	private:
-		 
-		 
 
+	private:
+		GLFWwindow* mWindow{ nullptr };
 	};
 }

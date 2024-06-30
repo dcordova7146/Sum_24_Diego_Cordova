@@ -19,6 +19,7 @@ target_compile_definitions(Dino
 		$<$<CONFIG:RelWithDebInfo>:DINO_DEBUG=1>
 	PRIVATE
 		DINO_LIB
+		DINO_GLFW
 )
 
 if(MSVC)
