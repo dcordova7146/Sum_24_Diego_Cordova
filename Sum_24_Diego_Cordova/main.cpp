@@ -1,8 +1,10 @@
 #include "Dino.h"
 #include <iostream>
 
-class BestGame : public Dino::DinoApp {
-	virtual void OnUpdate() override{
+class BestGame : public Dino::DinoApp 
+{
+	virtual void OnUpdate() override
+	{
 		DINO_LOG("Running"<<"\n")
 	}
 
