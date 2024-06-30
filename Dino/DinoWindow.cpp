@@ -18,7 +18,7 @@ namespace Dino
 	void DinoWindow::Init()
 	{
 		if (!mInstance)
-			mInstance = std::make_shared<DinoWindow>(new DinoWindow);
+			mInstance = std::shared_ptr<DinoWindow>(new DinoWindow);
 	}
 
 	std::shared_ptr<DinoWindow> DinoWindow::GetWindow()
