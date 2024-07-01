@@ -128,7 +128,7 @@ namespace Dino {
 		glDeleteShader(fragmentShader);
 
 
-		Dino::Image pic{ "..Table/Assets/Images/untitled.png" };
+		Dino::Image pic{ "../Dino/Assets/Images/temp.png" };
 
 		while (true) {
 			OnUpdate();
