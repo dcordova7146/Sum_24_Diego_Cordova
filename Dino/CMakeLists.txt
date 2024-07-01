@@ -26,8 +26,8 @@ if(MSVC)
 	target_compile_definitions(Dino PUBLIC DINO_MSVC)
 endif()
 
-target_inlcude_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/Dino)
-target_inlcude_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/glfw/include)
+target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/Dino)
+target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/glfw/include)
 
 target_link_libraries(Dino glfw)
 
