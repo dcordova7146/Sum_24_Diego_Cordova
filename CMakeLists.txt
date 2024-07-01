@@ -7,8 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+add_subdirectory(stbi)
+add_subdirectory(glad)
 add_subdirectory(glfw)
 add_subdirectory(Dino)
 add_subdirectory(Sum_24_Diego_Cordova)
+
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT BestGame)
