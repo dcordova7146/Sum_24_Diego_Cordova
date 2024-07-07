@@ -5,6 +5,10 @@
 
 namespace Dino
 {
+	ShadersOpenGL::ShadersOpenGL()
+	{
+	}
+
 	ShadersOpenGL::ShadersOpenGL(const std::string& vertexFile, const std::string& fragmentFile)
 	{
 		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -127,6 +131,56 @@ namespace Dino
 		glUseProgram(mShaderProgram);
 		int location{ glGetUniformLocation(mShaderProgram, uniformName.c_str()) };
 		glUniform2i(location, val1, val2);
+	}
+
+	void ShadersOpenGL::LoadSourceCode(const std::string& vertexFile, const std::string& fragmentFile)
+	{
+		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+		std::string readFile{ ReadFile(vertexFile) };
+		const char* sourceCode{ readFile.c_str() };
+
+		glShaderSource(vertexShader, 1, &sourceCode, NULL);
+		glCompileShader(vertexShader);
+		//check for shader compile errors
+		int successs;
+		char infoLog[512];
+		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &successs);
+		if (!successs)
+		{
+			glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+			DINO_ERROR("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog);
+		}
+
+		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		readFile = ReadFile(fragmentFile);
+		sourceCode = readFile.c_str();
+
+		glShaderSource(fragmentShader, 1, &sourceCode, NULL);
+		glCompileShader(fragmentShader);
+		//check for shader compile errors
+		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &successs);
+		if (!successs)
+		{
+			glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+			DINO_ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog);
+		}
+
+		//link shaders
+		mShaderProgram = glCreateProgram();
+
+		glAttachShader(mShaderProgram, vertexShader);
+		glAttachShader(mShaderProgram, fragmentShader);
+		glLinkProgram(mShaderProgram);
+		//check for linking errors
+		glGetProgramiv(mShaderProgram, GL_LINK_STATUS, &successs);
+		if (!successs)
+		{
+			glGetProgramInfoLog(mShaderProgram, 512, NULL, infoLog);
+			DINO_ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog);
+		}
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
 	}
 
 	std::string ShadersOpenGL::ReadFile(const std::string& fileName)

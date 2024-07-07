@@ -16,6 +16,7 @@ namespace Dino
 
 		void Draw(Image& pic, int xCoord, int yCoord, Shaders& shaders);
 		void Draw(Image& pic, int xCoord, int yCoord);
+		void ClearScreen();
 
 	private:
 		std::unique_ptr<RendererImplementation> mImplementation;

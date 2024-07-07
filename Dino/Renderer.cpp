@@ -30,6 +30,11 @@ namespace Dino
 		mImplementation->Draw(pic, xCoord, yCoord);
 	}
 
+	void Renderer::ClearScreen()
+	{
+		mImplementation->ClearScreen();
+	}
+
 	Renderer::Renderer()
 	{
 #ifdef DINO_OPENGL

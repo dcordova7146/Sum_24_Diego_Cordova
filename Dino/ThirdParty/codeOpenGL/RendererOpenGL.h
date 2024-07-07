@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../../RendererImplementation.h"
+#include"ThirdParty/codeOpenGL/ShadersOpenGL.h"
 
 namespace Dino
 {
@@ -12,12 +13,12 @@ namespace Dino
 
 		virtual void Draw(Image& pic, int xCoord, int yCoord, Shaders& shaders) override;
 		virtual void Draw(Image& pic, int xCoord, int yCoord) override;
+		virtual void ClearScreen() override;
 
 
 	private:
 
-		Shaders mDefaultShaders{
-			"../Dino/Assets/Shaders/defaultVertex.glsl",
-			"../Dino/Assets/Shaders/defaultFragment.glsl" };
+		ShadersOpenGL mDefaultShaders;
+
 	};
 }
