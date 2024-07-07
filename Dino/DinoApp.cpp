@@ -5,6 +5,7 @@
 #include "DinoApp.h"
 #include"DinoWindow.h"
 #include"Image.h"
+#include"Shaders.h"
 #include"stb_image.h"
 
 namespace Dino {
@@ -29,10 +30,10 @@ namespace Dino {
 		////VERTEX DATA ////
 
 		float vertices[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, //bottom-left
-			-0.5f, 0.5f, 0.0f, 1.0f, //upper-left
-			0.5f, 0.5f, 1.0f, 1.0f, //upper-right
-			0.5f, -0.5f, 1.0f, 0.0f //bottom-right
+			10, 10, 0.0f, 0.0f, //bottom-left
+			10, 100, 0.0f, 1.0f, //upper-left
+			100, 100, 1.0f, 1.0f, //upper-right
+			100, 10, 1.0f, 0.0f //bottom-right
 		};
 
 		unsigned int indices[] = {
@@ -62,71 +63,12 @@ namespace Dino {
 
 		//// SHADERS ////
 
-		const char* vertexShaderSource = R"(
-			#version 330 core
-			layout (location = 0) in vec2 aPos;
-			layout (location = 1) in vec2 aTexCoord;
-
-			out vec2 TexCoord;
-
-			void main()
-			{
-				gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
-				TexCoord = aTexCoord;
-			}
-		)";
-
-		const char* fragmentShaderSource = R"(
-			#version 330 core
-			out vec4 FragColor;
-
-			in vec2 TexCoord;
-			uniform sampler2D image;
-
-			void main()
-			{
-				FragColor = texture(image, TexCoord);
-			}
-		)";
 		
-		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-		glCompileShader(vertexShader);
-		//check for shader compile errors
-		int successs;
-		char infoLog[512];
-		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &successs);
-		if (!successs)
-		{
-			glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-			DINO_ERROR("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog);
-		}
+		Dino::Shaders shaders{
+			"../Dino/Assets/Shaders/defaultVertex.glsl",
+			"../Dino/Assets/Shaders/defaultFragment.glsl" };
 
-		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-		glCompileShader(fragmentShader);
-		//check for shader compile errors
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &successs);
-		if (!successs)
-		{
-			glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-			DINO_ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog);
-		}
-		//link shaders
-		unsigned int shaderProgram = glCreateProgram();
-		glAttachShader(shaderProgram, vertexShader);
-		glAttachShader(shaderProgram, fragmentShader);
-		glLinkProgram(shaderProgram);
-		//check for linking errors
-		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &successs);
-		if (!successs)
-		{
-			glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-			DINO_ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog);
-		}
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-
+		//// TEXTURE //////
 
 		Dino::Image pic{ "../Dino/Assets/Images/temp.png" };
 
@@ -136,7 +78,8 @@ namespace Dino {
 			glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glUseProgram(shaderProgram);
+			shaders.Bind();
+			shaders.SetUniform2Ints("ScreenSize", 1000, 800);
 			glBindVertexArray(VAO); // seeing as we only have a single VAO there no need to bind
 			pic.Bind();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

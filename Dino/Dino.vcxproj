@@ -142,8 +142,10 @@
     <ClInclude Include="include\Dino.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Shaders.h" />
+    <ClInclude Include="ShadersImplementation.h" />
     <ClInclude Include="ThirdParty\codeGLFW\WindowGLFW.h" />
     <ClInclude Include="ThirdParty\codeOpenGL\ImageOpenGL.h" />
+    <ClInclude Include="ThirdParty\codeOpenGL\ShadersOpenGL.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="WindowImplementation.h" />
   </ItemGroup>
@@ -158,6 +160,7 @@
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="ThirdParty\codeGLFW\WindowGLFW.cpp" />
     <ClCompile Include="ThirdParty\codeOpenGL\ImageOpenGL.cpp" />
+    <ClCompile Include="ThirdParty\codeOpenGL\ShadersOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\build_glfw\src\glfw.vcxproj">
