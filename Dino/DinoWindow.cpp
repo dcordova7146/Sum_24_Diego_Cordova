@@ -56,4 +56,20 @@ namespace Dino
 		mImplementation->PollEvents();
 	}
 
+	void DinoWindow::SetKeyPressedCallback(const std::function<void(const KeyPressedEvent&)>& newCallback)
+	{
+		mImplementation->setKeyPressedCallback(newCallback);
+	}
+
+	void DinoWindow::SetKeyReleasedCallback(const std::function<void(const KeyReleasedEvent&)>& newCallback)
+	{
+		mImplementation->setKeyReleasedCallback(newCallback);
+	}
+
+	void DinoWindow::SetWindowCloseCallback(const std::function<void(const WindowCloseEvent&)>& newCallback)
+	{
+		mImplementation->setWindowCloseCallback(newCallback);
+	}
+
+	
 }

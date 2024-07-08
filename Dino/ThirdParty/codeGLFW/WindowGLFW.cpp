@@ -6,16 +6,18 @@ namespace Dino
 {
 	void WindowGLFW::CreateWindow(int width, int height, const std::string& windowName)
 	{
-	// glfw window creation copied from learn triangle cpp from learn open gl
-	// --------------------
+		// glfw window creation copied from learn triangle cpp from learn open gl
+		// --------------------
 		mWindow = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 		if (mWindow == NULL)
 		{
-			DINO_ERROR("Window failed to create!!!!");
+			DINO_ERROR("ERROR: Window failed to create!!!!");
 			glfwTerminate();
 			return;
 		}
 		glfwMakeContextCurrent(mWindow);
+
+		SetDefaultCallbacks();
 	}
 
 	void WindowGLFW::CreateWindow(int width, int height, std::string&& windowName)
@@ -28,6 +30,8 @@ namespace Dino
 			return;
 		}
 		glfwMakeContextCurrent(mWindow);
+
+		SetDefaultCallbacks();
 	}
 
 	int WindowGLFW::GetWidth() const
@@ -56,6 +60,21 @@ namespace Dino
 		glfwPollEvents();
 	}
 
+	void WindowGLFW::SetKeyPressedCallback(const std::function<void(const KeyPressedEvent&)>& newCallback)
+	{
+		mCallbacks.KeyPressedCallback = newCallback;
+	}
+
+	void WindowGLFW::SetKeyReleasedCallback(const std::function<void(const KeyReleasedEvent&)>& newCallback)
+	{
+		mCallbacks.KeyReleasedCallback = newCallback;
+	}
+
+	void WindowGLFW::SetWindowCloseCallback(const std::function<void(const WindowCloseEvent&)>& newCallback)
+	{
+		mCallbacks.WindowCloseCallback = newCallback;
+	}
+
 	WindowGLFW::WindowGLFW()
 	{
 		glfwInit();
@@ -67,5 +86,33 @@ namespace Dino
 	WindowGLFW::~WindowGLFW()
 	{
 		glfwTerminate();
+	}
+	void WindowGLFW::SetDefaultCallbacks()
+	{
+		glfwSetWindowUserPointer(mWindow, &mCallbacks);
+
+		glfwSetKeyCallback(mWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			if (action == GLFW_PRESS)
+			{
+				Callbacks* ptrCallbacks{ (Callbacks*)glfwGetWindowUserPointer(window) };
+
+				KeyPressedEvent event{ key };
+				ptrCallbacks->KeyPressedCallback(event);
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				Callbacks* ptrCallbacks{ (Callbacks*)glfwGetWindowUserPointer(window) };
+
+				KeyReleasedEvent event { key };
+				ptrCallbacks->KeyReleasedCallback(event);
+			}
+			});
+
+		glfwSetWindowCloseCallback(mWindow, [](GLFWwindow* window) {
+			Callbacks* ptrCallbacks{ (Callbacks*)glfwGetWindowUserPointer(window) };
+
+			WindowCloseEvent event;
+			ptrCallbacks->WindowCloseCallback(event);
+			});
 	}
 }

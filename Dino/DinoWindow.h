@@ -3,6 +3,7 @@
 #include"pch.h"
 #include"Utils.h"
 #include"WindowImplementation.h"
+#include"Events.h"
 
 namespace Dino
 {
@@ -18,6 +19,10 @@ namespace Dino
 		int GetHeight() const;
 		void SwapBuffers();
 		void PollEvents();
+
+		void SetKeyPressedCallback(const std::function<void(const KeyPressedEvent&)>& newCallback);
+		void SetKeyReleasedCallback(const std::function<void(const KeyReleasedEvent&)>& newCallback);
+		void SetWindowCloseCallback(const std::function<void(const WindowCloseEvent&)>& newCallback);
 
 
 	private: //class member should have name convention m lowercase before it
