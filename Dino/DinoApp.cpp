@@ -53,17 +53,17 @@ namespace Dino {
 
 	void DinoApp::SetKeyPressedCallback(const std::function<void(const KeyPressedEvent&)>& newCallback)
 	{
-		DinoWindow::GetWindow()->SetKeyPressedCallBack(newCallback);
+		DinoWindow::GetWindow()->SetKeyPressedCallback(newCallback);
 	}
 
 	void DinoApp::SetKeyReleasedCallback(const std::function<void(const KeyReleasedEvent&)>& newCallback)
 	{
-		DinoWindow::GetWindow()->SetKeyReleasedCallBack(newCallback);
+		DinoWindow::GetWindow()->SetKeyReleasedCallback(newCallback);
 	}
 
 	void DinoApp::SetWindowCloseCallback(const std::function<void(const WindowCloseEvent&)>& newCallback)
 	{
-		DinoWindow::GetWindow()->SetWindowCloseCallBack(newCallback);
+		DinoWindow::GetWindow()->SetWindowCloseCallback(newCallback);
 		
 	}
 

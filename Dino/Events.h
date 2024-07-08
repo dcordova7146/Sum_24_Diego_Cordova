@@ -17,6 +17,7 @@ namespace Dino
 
 	class DINO_API KeyReleasedEvent
 	{
+	public:
 		KeyReleasedEvent(int keyCode);
 		int GetKey() const;
 
