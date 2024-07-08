@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DinoApp.h" />
+    <ClInclude Include="DinoKeys.h" />
     <ClInclude Include="DinoWindow.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Image.h" />

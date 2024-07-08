@@ -7,6 +7,7 @@
 namespace Dino 
 {	
 	constexpr int DEFAULT_FRAME_RATE{ 60 };
+
 	class DINO_API DinoApp
 	{
 	public:
