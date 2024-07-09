@@ -12,10 +12,12 @@ namespace Dino
 		Image(const std::string& fileName);
 		Image(std::string&& fileName);
 
+		void LoadImage(const std::string& fileName);
+		void LoadImage(std::string&& fileName);
+
 		void Bind();
 		int GetWidth() const;
 		int GetHeight() const;
-
 
 	private:
 		std::unique_ptr<ImageImplementation> mImplementation;

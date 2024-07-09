@@ -23,6 +23,25 @@ namespace Dino
 #endif
 	}
 
+	Image::Image()
+	{
+#ifdef DINO_OPENGL
+		mImplementation = std::make_unique<ImageOpenGL>();
+#else
+		#ERROR_DINO_OPENGL_ISNT_DEFINED //fake error for precomplier
+#endif
+	}
+
+	void Image::LoadImage(const std::string& fileName)
+	{
+		mImplementation->LoadImage(fileName);
+	}
+
+	void Image::LoadImage(std::string&& fileName)
+	{
+		mImplementation->LoadImage(std::move(fileName));
+	}
+
 	void Image::Bind()
 	{
 		mImplementation->Bind();
