@@ -14,6 +14,9 @@ set(HEADER_FILES
 	Renderer.h
 	RendererImplementation.h
 	ThirdParty/codeOpenGL/RendererOpenGL.h
+	Events.h
+	DinoKeys.h
+
 )
 set(SOURCE_FILES 
 	DinoApp.cpp
@@ -25,6 +28,7 @@ set(SOURCE_FILES
 	ThirdParty/codeOpenGL/ShadersOpenGL.cpp
 	Renderer.cpp
 	ThirdParty/codeOpenGL/RendererOpenGL.cpp
+	Events.cpp
 )
 
 add_library(Dino SHARED ${HEADER_FILES} ${SOURCE_FILES})
@@ -32,9 +36,9 @@ target_compile_definitions(Dino
 	PUBLIC
 		$<$<CONFIG:Debug>:DINO_DEBUG=2>
 		$<$<CONFIG:RelWithDebInfo>:DINO_DEBUG=1>
+		DINO_GLFW
 	PRIVATE
 		DINO_LIB
-		DINO_GLFW
 		DINO_OPENGL
 )
 
