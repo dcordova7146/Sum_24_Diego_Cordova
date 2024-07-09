@@ -16,6 +16,8 @@ namespace Dino
 
 		void Draw(Image& pic, int xCoord, int yCoord, Shaders& shaders);
 		void Draw(Image& pic, int xCoord, int yCoord);
+		void Draw(Unit& unit, Shaders& shaders);
+		void Draw(Unit& unit);
 		void ClearScreen();
 
 	private:

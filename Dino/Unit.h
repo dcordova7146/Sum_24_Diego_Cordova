@@ -30,11 +30,20 @@ namespace Dino
 		
 		void UpdateXBy(int amount);
 		void UpdateYBy(int amount);
+		
+		int GetHeight() const;
+		int GetWidth() const;
+
+		bool IsVisible() const;
+		void SetVisible();
+		void SetInvisible();
 
 		friend class Renderer;
+
 	private:
 		Coordinates mCoords;
 		Image mSprite;
+		bool mIsVisible{ true };
 
 	};
 }
