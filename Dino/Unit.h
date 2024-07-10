@@ -16,6 +16,14 @@ namespace Dino
 		Coordinates(int xVal, int yVal);
 	};
 
+	struct DINO_API Speed
+	{
+		int xSpeed{ 0 };
+		int ySpeed{ 0 };
+
+		Speed();
+		Speed(int xComponent, int yComponent);
+	};
 
 	class DINO_API Unit
 	{
@@ -34,6 +42,10 @@ namespace Dino
 		int GetHeight() const;
 		int GetWidth() const;
 
+		Speed GetSpeed() const;
+		void SetSpeed(Speed newSpeed);
+		void UpdateSpeed(int xChange, int yChange);
+
 		bool IsVisible() const;
 		void SetVisible();
 		void SetInvisible();
@@ -44,6 +56,7 @@ namespace Dino
 		Coordinates mCoords;
 		Image mSprite;
 		bool mIsVisible{ true };
+		Speed mSpeed;
 
 	};
 }
