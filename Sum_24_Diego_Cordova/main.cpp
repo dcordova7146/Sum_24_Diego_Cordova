@@ -18,6 +18,7 @@ public:
 
 private:
 	Dino::Image pic{ "../Dino/Assets/Images/temp.png" };
+	Dino::Unit unit; //background 213 pixel high floor
 
 	int x{ 100 };
 

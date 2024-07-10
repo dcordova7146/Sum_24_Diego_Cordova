@@ -8,3 +8,6 @@
 #include "../Renderer.h"
 #include "../Events.h"
 #include "../DinoKeys.h"
+#include "../Unit.h"
+#include "../Map.h"
+#include "../Physics.h"

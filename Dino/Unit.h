@@ -3,7 +3,6 @@
 #include"pch.h"
 #include"Utils.h"
 #include"Image.h"
-#include"Renderer.h"
 
 namespace Dino
 {
