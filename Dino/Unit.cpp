@@ -11,6 +11,17 @@ namespace Dino
 	{
 	}
 
+	Unit::Unit(const std::string& fileName, Coordinates newCoordinates): mCoords(newCoordinates)
+	{
+		LoadSprite(fileName);
+		
+	}
+
+	Unit::Unit(std::string&& fileName, Coordinates newCoordinates): mCoords(newCoordinates)
+	{
+		LoadSprite(std::move(fileName));
+	}
+
 	void Unit::SetCoordinates(Coordinates newCoordinates)
 	{
 		mCoords = newCoordinates;

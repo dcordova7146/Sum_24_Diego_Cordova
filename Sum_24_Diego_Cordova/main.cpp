@@ -1,5 +1,6 @@
 #include "Dino.h"
 #include <iostream>
+#include <vector>
 
 class BestGame : public Dino::DinoApp
 {
@@ -9,16 +10,31 @@ public:
 		SetKeyPressedCallback([this](const Dino::KeyPressedEvent& key) {
 			MyKeyPressedCallback(key);
 			});
+
+		map.LoadBackgroundImage("../Dino/Assets/Images/Background.png");
+		std::vector<std::vector<bool>> util;
+		for (int i{ 0 }; i < 213; i++)
+			util.push_back(std::vector<bool>(1000, false));
+
+		for (int i{ 0 }; i < 587; i++)
+			util.push_back(std::vector<bool>(1000, true));
+		map.LoadPixelPassability(util);
+		
+		unit.SetSpeed({ 10,-10 });
 	}
 
 	virtual void OnUpdate() override
 	{
-		Dino::Renderer::Get()->Draw(pic, x, 200);
+		physics.NextPosition(unit, map);
+		Dino::Renderer::Get()->Draw(map);
+		Dino::Renderer::Get()->Draw(unit);
 	}
 
 private:
-	Dino::Image pic{ "../Dino/Assets/Images/temp.png" };
-	Dino::Unit unit; //background 213 pixel high floor
+	//Dino::Image pic{ "../Dino/Assets/Images/temp.png" };//background 213 pixel high floor
+	Dino::Unit unit{ "../Dino/Assets/Images/temp.png", {300,400} };
+	Dino::Map map;
+	Dino::Physics physics;
 
 	int x{ 100 };
 

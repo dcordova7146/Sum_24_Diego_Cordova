@@ -13,6 +13,7 @@ namespace Dino
 
 	void Physics::NextPosition(Unit& unit, const Map& map)
 	{
+		DINO_LOG(unit.GetCoordinates().x << " " << unit.GetCoordinates().y);
 		int numOfIterations{ 0 };
 		float xComponent{ (float)unit.GetSpeed().xSpeed };
 		float yComponent{ (float)unit.GetSpeed().ySpeed };
@@ -56,7 +57,7 @@ namespace Dino
 		return true;
 	}
 
-	void ApplyGravity(Unit& unit)
+	void Physics::ApplyGravity(Unit& unit)
 	{
 		Speed speed{ unit.GetSpeed() };
 		speed.ySpeed -= mGravity;

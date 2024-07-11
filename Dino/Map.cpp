@@ -21,7 +21,10 @@ namespace Dino
 
 	bool Map::GetPixelPassability(Coordinates coords) const
 	{
-		return mPassable[coords.x][coords.y];
+		if (coords.y >= mPassable.size() || coords.x >= mPassable[0].size())
+			return false;
+
+		return mPassable[coords.y][coords.x];
 	}
 
 	int Map::GetWidth() const

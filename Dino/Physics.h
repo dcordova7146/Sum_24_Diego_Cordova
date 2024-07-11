@@ -22,7 +22,7 @@ namespace Dino
 
 
 	private:
-		int mGravity{ 0 }; // positive number of pixels to alter Y speed component per frame
+		int mGravity { 0 }; // positive number of pixels to alter Y speed component per frame
 
 
 	};
