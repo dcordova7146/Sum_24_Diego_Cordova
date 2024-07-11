@@ -7,17 +7,45 @@ namespace Dino
 	void Map::LoadBackgroundImage(const std::string& fileName)
 	{
 		mBackground.LoadImage(fileName);
+
+		mPassable.resize(mBackground.GetHeight());
+		for (auto& row : mPassable)
+			row.resize(mBackground.GetWidth(), true);
 	}
 
 	void Map::LoadBackgroundImage(std::string&& fileName)
 	{
 		mBackground.LoadImage(std::move(fileName));
+
+		mPassable.resize(mBackground.GetHeight());
+		for (auto& row : mPassable)
+			row.resize(mBackground.GetWidth(), true);
 	}
 
-	void Map::LoadPixelPassability(std::vector<std::vector<bool>> pixelPassability)
+	void Map::LoadMapPassability(std::vector<std::vector<bool>> pixelPassability)
 	{
+		//assume backgrounds the user give are rectangle shaped
+		if (pixelPassability.size() != mBackground.GetHeight() || pixelPassability.size() == 0 ||
+			pixelPassability[0].size() != mBackground.GetWidth())
+		{
+			DINO_ERROR("ERROR: LoadMapPassability got bad paramaters!!!");
+			return;
+		}
 		mPassable = std::move(pixelPassability);
 	}
+
+	void Map::LoadPixelPassability(Coordinates coords, bool isPassable)
+	{
+		if (coords.x >= mBackground.GetWidth() || coords.y >= mBackground.GetHeight())
+		{
+			DINO_ERROR("ERROR: LoadPixelPassability got out of range coordinates");
+			return;
+		}
+
+		mPassable[coords.y][coords.x] = isPassable;
+	}
+
+	
 
 	bool Map::GetPixelPassability(Coordinates coords) const
 	{

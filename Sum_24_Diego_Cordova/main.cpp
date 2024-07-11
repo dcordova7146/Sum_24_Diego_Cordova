@@ -18,9 +18,9 @@ public:
 
 		for (int i{ 0 }; i < 587; i++)
 			util.push_back(std::vector<bool>(1000, true));
-		map.LoadPixelPassability(util);
+		map.LoadMapPassability(util);
 		
-		unit.SetSpeed({ 10,-10 });
+		unit.SetSpeed({ -10,1 });
 	}
 
 	virtual void OnUpdate() override

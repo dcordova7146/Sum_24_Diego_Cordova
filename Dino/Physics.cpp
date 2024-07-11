@@ -13,7 +13,7 @@ namespace Dino
 
 	void Physics::NextPosition(Unit& unit, const Map& map)
 	{
-		DINO_LOG(unit.GetCoordinates().x << " " << unit.GetCoordinates().y);
+		//DINO_LOG(unit.GetCoordinates().x << " " << unit.GetCoordinates().y);
 		int numOfIterations{ 0 };
 		float xComponent{ (float)unit.GetSpeed().xSpeed };
 		float yComponent{ (float)unit.GetSpeed().ySpeed };
@@ -62,6 +62,21 @@ namespace Dino
 		Speed speed{ unit.GetSpeed() };
 		speed.ySpeed -= mGravity;
 		unit.SetSpeed(speed);
+	}
+
+	bool Physics::IsStanding(Unit& unit, Map& map)
+	{
+		if(unit.GetCoordinates().y == 0)
+			return false;
+
+		int xCoord{ unit.GetCoordinates().x };
+		int yCoord{ unit.GetCoordinates().y };
+
+		for(int i{0}; i<unit.GetWidth();i++)
+			if (map.GetPixelPassability({ xCoord + i, yCoord - 1 }));
+			return true;
+
+			return false;
 	}
 
 	int Physics::GetGravity() const

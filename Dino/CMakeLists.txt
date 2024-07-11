@@ -16,6 +16,9 @@ set(HEADER_FILES
 	ThirdParty/codeOpenGL/RendererOpenGL.h
 	Events.h
 	DinoKeys.h
+	Unit.h
+	Map.h
+	Physics.h
 
 )
 set(SOURCE_FILES 
@@ -29,6 +32,9 @@ set(SOURCE_FILES
 	Renderer.cpp
 	ThirdParty/codeOpenGL/RendererOpenGL.cpp
 	Events.cpp
+	Unit.cpp
+	Map.cpp
+	Physics.cpp
 )
 
 add_library(Dino SHARED ${HEADER_FILES} ${SOURCE_FILES})
@@ -49,6 +55,7 @@ endif()
 target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/Dino)
 target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/glfw/include)
 target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/glad/include)
+target_include_directories(Dino PRIVATE ${CMAKE_SOURCE_DIR}/stbi)
 
 target_link_libraries(Dino glfw glad stbi)
 
