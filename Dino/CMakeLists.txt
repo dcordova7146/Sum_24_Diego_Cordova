@@ -61,3 +61,5 @@ target_link_libraries(Dino glfw glad stbi)
 
 target_precompile_headers(Dino PRIVATE pch.h)
 
+file(COPY Assets DESTINATION ${PROJECT_BINARY_DIR}/Dino)
+
