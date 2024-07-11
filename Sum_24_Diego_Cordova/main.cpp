@@ -20,7 +20,7 @@ public:
 			util.push_back(std::vector<bool>(1000, true));
 		map.LoadMapPassability(util);
 		
-		unit.SetSpeed({ -10,1 });
+		//unit.SetSpeed({ 1,1 });
 	}
 
 	virtual void OnUpdate() override
@@ -36,11 +36,19 @@ private:
 	Dino::Map map;
 	Dino::Physics physics;
 
-	int x{ 100 };
-
 	void MyKeyPressedCallback(const Dino::KeyPressedEvent& key) {
-		if (key.GetKey() == DINO_KEY_RIGHT)
-			x += 40;
+		if (key.GetKey() == DINO_KEY_RIGHT) {
+			unit.UpdateXBy(40);
+		}
+		else if (key.GetKey() == DINO_KEY_UP) {
+			unit.UpdateYBy(40);
+		}
+		else if (key.GetKey() == DINO_KEY_LEFT) {
+			unit.UpdateXBy(-40);
+		}
+		else if (key.GetKey() == DINO_KEY_DOWN) {
+			unit.UpdateYBy(-40);
+		}
 	}
 };
 
