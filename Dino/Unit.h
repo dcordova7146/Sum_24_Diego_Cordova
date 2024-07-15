@@ -69,8 +69,8 @@ namespace Dino
 		void SetDir(Direction newDir);
 		Direction GetDir() const;
 
+		/// 
 		void SetHero();
-
 		void Act();
 
 

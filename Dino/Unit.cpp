@@ -14,6 +14,7 @@ namespace Dino
 	Unit::Unit(const std::string& fileName, Coordinates newCoordinates): mCoords(newCoordinates)
 	{
 		LoadSprite(fileName);
+		misHero = false;
 		mState = State::idle;
 		
 	}
@@ -22,6 +23,7 @@ namespace Dino
 	{
 		LoadSprite(std::move(fileName));
 		mState = State::idle;
+		misHero = false;
 
 	}
 
@@ -140,7 +142,6 @@ namespace Dino
 
 	void Unit::Act()
 	{
-
 		if (misHero)
 		{
 			if (mState == State::moving)
@@ -155,9 +156,7 @@ namespace Dino
 		else
 		{
 			if (mState == State::Active)
-			{
 				mCoords.y -= 10;
-			}
 		}
 
 	}

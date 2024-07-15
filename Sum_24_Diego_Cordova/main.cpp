@@ -25,19 +25,14 @@ public:
 		map.LoadMapPassability(util);
 		
 		unit.SetHero();
-		//use time to have unique seed for a unique game each time
+		//use time to have unique seed for a unique random seed each time
 		unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 		srand(seed);
 
-		//rock1.SetCoordinates({ 120,700 });
 		rock1.SetInvisible();
-		//rock2.SetCoordinates({ 320,700 });
 		rock2.SetInvisible();
-		//rock3.SetCoordinates({ 520,700 });
 		rock3.SetInvisible();
-		//rock4.SetCoordinates({ 720,700 });
 		rock4.SetInvisible();
-		//rock5.SetCoordinates({ 920,700 });
 		rock5.SetInvisible();
 		
 		cross1.SetInvisible();
@@ -46,7 +41,6 @@ public:
 
 		GameOver.UpdateXBy(-(GameOver.GetWidth() / 2));
 		GameOver.UpdateYBy(-(GameOver.GetHeight() / 2));
-	
 	}
 
 	virtual void OnUpdate() override
@@ -87,6 +81,7 @@ public:
 			Dino::Renderer::Get()->Draw(cross1);
 			Dino::Renderer::Get()->Draw(cross2);
 			Dino::Renderer::Get()->Draw(cross3);
+			//framesSinceGameStart += 1;
 		}
 		else
 		{
@@ -115,8 +110,6 @@ private:
 	Dino::Unit GameOver{ "../Dino/Assets/Images/gameover.png", {500,400} };
 
 	int hits = 0;
-	int framesSinceGameStart = 0;
-	int difficulty = 0; //raised every second based on frames since start
 
 	Dino::Physics physics;
 	int framesSinceStart = 0;
@@ -126,18 +119,15 @@ private:
 		"../Dino/Assets/Images/rock3.png"
 	};
 
-
 	void MyKeyPressedCallback(const Dino::KeyPressedEvent& key) 
 	{
 		if (key.GetKey() == DINO_KEY_RIGHT) {
 			unit.SetState(Dino::Unit::State::moving);
 			unit.SetDir(Dino::Unit::Direction::right);
-			//unit.UpdateXBy(40);
 		}
 		else if (key.GetKey() == DINO_KEY_LEFT) {
 			unit.SetState(Dino::Unit::State::moving);
 			unit.SetDir(Dino::Unit::Direction::left);
-			//unit.UpdateXBy(-40);
 		}
 	}
 
@@ -147,8 +137,9 @@ private:
 	}
 
 	void trySpawnMeteor(Dino::Unit& rock) {
-		if (2 >= rand() % 1000)
+		if (2 >= rand() % 100)
 		{
+			//on success condition show the rock again and activate it
 			if (rock.GetState() == Dino::Unit::State::idle)
 			{
 				rock.SetVisible();
@@ -174,8 +165,10 @@ private:
 	}
 
 	void checkCollisions(Dino::Unit& rock) {
+		//reuse the same rock to save resources
 		if (rock.GetState() == Dino::Unit::State::Active)
 		{
+			//if a rock collides with something reset its position to the top of the game window and hide it
 			if (rock.OverlapsWith(unit)) {
 				rock.UpdateYBy(500);
 				rock.SetState(Dino::Unit::State::idle);
@@ -183,11 +176,10 @@ private:
 				takeLife();
 			}
 			if (rock.GetCoordinates().y <= 215) {
-				rock.UpdateYBy(490);
+				rock.UpdateYBy(600);
 				rock.SetState(Dino::Unit::State::idle);
 				rock.SetInvisible();
 			}
-
 		}
 	}
 
@@ -202,8 +194,6 @@ private:
 			cross3.SetVisible();
 		}
 	}
-
-
 };
 
 
