@@ -1,0 +1,29 @@
+Dinosaur game Uniqueness
+created multiple new functions related to meteor generation
+added onto the unit class
+-states enum 
+	-idle (used by both rock and hero)
+	-active(for checking if a rock is allowed to fall)
+	-moving(for key hold movement)
+-direction enum
+	-left and right for the hold press movement
+-act function
+	using the isHero bool to set a unit to a hero (default is false)
+	based on the ishero it checks the hold key press movement direction
+	if not a hero a constant fall down is used for meteors
+
+added onto main functions for meteors
+-try spawn meteor 
+	using a random chance of 2/1000 since this is run 1 every frame the 	activation rate seems fair
+	if a rock is in the idle state it will then swap it to active and make it visible again, thus we are reusing the same rock to be more efficient
+	(originally spawned a rock in a random spot across the top of the window 
+	but checking all collision of many object made game run innefficiently)
+
+-check collisions
+	given a object by reference we check if it collides with the player or the floor
+	both will reset the rock to the top of the screen but keep it hidden and in the idle state waiting a successful reactivation check
+	if it collides with a hero however we can increment the amount of hits the player has taken
+	
+-takelife 
+	called when a collision between player and meteor occurs increment hits taken and allow the visualization of strikes the player has 3 and its game over
+
