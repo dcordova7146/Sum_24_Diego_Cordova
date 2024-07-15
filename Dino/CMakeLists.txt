@@ -19,7 +19,6 @@ set(HEADER_FILES
 	Unit.h
 	Map.h
 	Physics.h
-
 )
 set(SOURCE_FILES 
 	DinoApp.cpp

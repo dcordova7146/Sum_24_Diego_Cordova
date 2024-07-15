@@ -14,12 +14,15 @@ namespace Dino
 	Unit::Unit(const std::string& fileName, Coordinates newCoordinates): mCoords(newCoordinates)
 	{
 		LoadSprite(fileName);
+		mState = State::idle;
 		
 	}
 
 	Unit::Unit(std::string&& fileName, Coordinates newCoordinates): mCoords(newCoordinates)
 	{
 		LoadSprite(std::move(fileName));
+		mState = State::idle;
+
 	}
 
 	void Unit::SetCoordinates(Coordinates newCoordinates)
@@ -108,6 +111,55 @@ namespace Dino
 	void Unit::SetInvisible()
 	{
 		mIsVisible = false;
+	}
+
+	void Unit::SetState(State newState)
+	{
+		mState = newState;
+	}
+
+	Dino::Unit::State Unit::GetState() const
+	{
+		return mState;
+	}
+
+	void Unit::SetDir(Direction newDir)
+	{
+		mDir = newDir;
+	}
+
+	Dino::Unit::Direction Unit::GetDir() const
+	{
+		return Direction();
+	}
+
+	void Unit::SetHero()
+	{
+		misHero = true;
+	}
+
+	void Unit::Act()
+	{
+
+		if (misHero)
+		{
+			if (mState == State::moving)
+			{
+				if (mDir == Direction::left)
+					mCoords.x -= 25;
+
+				else if (mDir == Direction::right)
+					mCoords.x += 25;
+			}
+		}
+		else
+		{
+			if (mState == State::Active)
+			{
+				mCoords.y -= 10;
+			}
+		}
+
 	}
 
 	Speed::Speed()

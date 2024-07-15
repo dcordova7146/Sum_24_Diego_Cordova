@@ -27,8 +27,19 @@ namespace Dino
 	class DINO_API Unit
 	{
 	public:
+		enum class State
+		{
+			Active, idle, moving
+		};
+
+		enum class Direction
+		{
+			left, right
+		};
+
 		Unit(const std::string& fileName, Coordinates newCoordinates);
 		Unit(std::string&& fileName, Coordinates newCoordinates);
+		//Unit(std::vector<std::string> fileNames, Coordinates newCoordinates, bool isHero);
 
 		void SetCoordinates(Coordinates newCoordinates);
 		Coordinates GetCoordinates() const;
@@ -52,13 +63,30 @@ namespace Dino
 		void SetVisible();
 		void SetInvisible();
 
+		void SetState(State newState);
+		State GetState() const;
+
+		void SetDir(Direction newDir);
+		Direction GetDir() const;
+
+		void SetHero();
+
+		void Act();
+
+
 		friend class Renderer;
 
 	private:
 		Coordinates mCoords;
+		std::vector<Image> mSpriteSheet;
 		Image mSprite;
 		bool mIsVisible{ true };
 		Speed mSpeed;
 
+		///
+		bool misHero;
+		State mState;
+		Direction mDir;
+			
 	};
 }
