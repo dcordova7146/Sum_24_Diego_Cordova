@@ -25,6 +25,7 @@ public:
 		map.LoadMapPassability(util);
 		
 		unit.SetHero();
+		//use time to have unique seed for a unique game each time
 		unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 		srand(seed);
 
